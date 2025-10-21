@@ -30,15 +30,16 @@ git commit <nome_branch>
 Abaixo está sua linha do tempo, você deve manter apenas a linha do tempo [branch] que te faz chegar no mini curso
 
 ```bash
-* 66743f0 (HEAD -> main) [Bom dia]
-* 4baaeab [inicio do dia]
+* 85977a2 (HEAD -> main) [Bom dia]
+* 3e69c1c [inicio do dia]
+* 7007085 [indo pro onibus]
 |\
-| * bba8e23 (esquerda) [pela esquerda]
-| * 6c53c03 [panquenca]
-* fcabbf7 (direita) [pela direita]
-* c718d31 [chegou ao ponto do onibus]
-|* 06d6dcd (primeiro_onibus) [entrou no primeiro onibus que passou]
+| * 5746519 (esquerda) [pela esquerda]
+| * c231c12 [panquenca]
+* 9fb9408 (direita) [pela direita]
+* 67a80c8 [chegou ao ponto do onibus]
+|* 972e939 (primeiro_onibus) [entrou no primeiro onibus que passou]
 |\
-| * 8aec752 (segundo_onibus) [pegou o segundo onibus]
-|* 883838c [fim da linha]
+| * fd557dc (segundo_onibus) [pegou o segundo onibus]
+|* 8107bdd [fim da linha]
 ```
