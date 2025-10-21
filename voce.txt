@@ -1,2 +1,3 @@
 Bom dia, voce acordou em cima da hora hoje!
 voce ja esta pronto para sair de casa e ir ao mini curso de versionamento de codigo
+pela direita
