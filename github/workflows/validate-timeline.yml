@@ -1,0 +1,51 @@
+name: Validate Timeline (main→direita→segundo_onibus)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate branch topology
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Esperadas
+          expected=(main direita segundo_onibus)
+
+          # Verifica existencia de cada branch esperada
+          for b in "${expected[@]}"; do
+            if ! git show-ref --verify --quiet "refs/heads/$b"; then
+              echo "::error::Branch ausente: $b"
+              exit 1
+            fi
+          done
+
+          # Lista branches locais e detecta extras
+          mapfile -t branches < <(git for-each-ref --format='%(refname:short)' refs/heads/ | sort)
+          mapfile -t extras < <(comm -13 <(printf "%s\n" "${expected[@]}" | sort) <(printf "%s\n" "${branches[@]}"))
+          if ((${#extras[@]})); then
+            echo "::error::Branches inesperadas encontradas: ${extras[*]}"
+            echo "Mantenha apenas: ${expected[*]}"
+            exit 1
+          fi
+
+          # Verifica ancestralidade: main -> direita -> segundo_onibus
+          if ! git merge-base --is-ancestor main direita; then
+            echo "::error::'direita' nao deriva de 'main'."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor direita segundo_onibus; then
+            echo "::error::'segundo_onibus' nao deriva de 'direita'."
+            exit 1
+          fi
+
+          echo "OK ✅ Topologia valida: main → direita → segundo_onibus"
